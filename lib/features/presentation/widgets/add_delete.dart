@@ -1,10 +1,11 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:products_web_dashboard/features/models/products_model.dart';
 import 'package:products_web_dashboard/features/presentation/blocs/products_cubit.dart';
 
 class AddEditProductDialog extends StatefulWidget {
-  final Product? existing;
+  final Product? existing; // ✅ must match the constructor parameter
 
   const AddEditProductDialog({Key? key, this.existing}) : super(key: key);
 
@@ -33,80 +34,44 @@ class _AddEditProductDialogState extends State<AddEditProductDialog> {
             widget.existing != null ? widget.existing!.stock.toString() : '0');
   }
 
-  Color adaptiveTextColor(BuildContext context) =>
-      Theme.of(context).brightness == Brightness.light
-          ? Colors.black
-          : Colors.white;
-
   @override
   Widget build(BuildContext context) {
     final isEdit = widget.existing != null;
     return AlertDialog(
-      backgroundColor: Theme.of(context).cardColor,
-      title: Text(
-        isEdit ? 'Edit Product' : 'Add Product',
-        style: TextStyle(color: adaptiveTextColor(context)),
-      ),
+      title: Text(isEdit ? 'Edit Product' : 'Add Product'),
       content: Form(
         key: _formKey,
         child: SingleChildScrollView(
           child: Column(mainAxisSize: MainAxisSize.min, children: [
             TextFormField(
-              controller: _titleCtr,
-              style: TextStyle(color: adaptiveTextColor(context)),
-              decoration: InputDecoration(
-                labelText: 'Title',
-                labelStyle: TextStyle(color: adaptiveTextColor(context)),
-              ),
-              validator: (v) =>
-                  (v == null || v.trim().isEmpty) ? 'Required' : null,
-            ),
-            const SizedBox(height: 8),
+                controller: _titleCtr,
+                decoration: InputDecoration(labelText: 'Title'),
+                validator: (v) =>
+                    (v == null || v.trim().isEmpty) ? 'Required' : null),
             TextFormField(
-              controller: _categoryCtr,
-              style: TextStyle(color: adaptiveTextColor(context)),
-              decoration: InputDecoration(
-                labelText: 'Category',
-                labelStyle: TextStyle(color: adaptiveTextColor(context)),
-              ),
-              validator: (v) =>
-                  (v == null || v.trim().isEmpty) ? 'Required' : null,
-            ),
-            const SizedBox(height: 8),
+                controller: _categoryCtr,
+                decoration: InputDecoration(labelText: 'Category'),
+                validator: (v) =>
+                    (v == null || v.trim().isEmpty) ? 'Required' : null),
             TextFormField(
-              controller: _priceCtr,
-              style: TextStyle(color: adaptiveTextColor(context)),
-              decoration: InputDecoration(
-                labelText: 'Price',
-                labelStyle: TextStyle(color: adaptiveTextColor(context)),
-              ),
-              keyboardType: TextInputType.number,
-              validator: (v) =>
-                  double.tryParse(v ?? '') == null ? 'Enter number' : null,
-            ),
-            const SizedBox(height: 8),
+                controller: _priceCtr,
+                decoration: InputDecoration(labelText: 'Price'),
+                keyboardType: TextInputType.number,
+                validator: (v) =>
+                    double.tryParse(v ?? '') == null ? 'Enter number' : null),
             TextFormField(
-              controller: _stockCtr,
-              style: TextStyle(color: adaptiveTextColor(context)),
-              decoration: InputDecoration(
-                labelText: 'Stock',
-                labelStyle: TextStyle(color: adaptiveTextColor(context)),
-              ),
-              keyboardType: TextInputType.number,
-              validator: (v) =>
-                  int.tryParse(v ?? '') == null ? 'Enter integer' : null,
-            ),
+                controller: _stockCtr,
+                decoration: InputDecoration(labelText: 'Stock'),
+                keyboardType: TextInputType.number,
+                validator: (v) =>
+                    int.tryParse(v ?? '') == null ? 'Enter integer' : null),
           ]),
         ),
       ),
       actions: [
         TextButton(
-          onPressed: () => Navigator.of(context).pop(),
-          child: Text(
-            'Cancel',
-            style: TextStyle(color: adaptiveTextColor(context)),
-          ),
-        ),
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text('Cancel')),
         ElevatedButton(
           onPressed: () {
             if (!_formKey.currentState!.validate()) return;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../sidebar.dart';
+import 'sidebar.dart';
 
 class ResponsiveLayoutShell extends StatefulWidget {
   final Widget child;

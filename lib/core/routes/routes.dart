@@ -4,8 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:products_web_dashboard/features/presentation/blocs/theme_cubit.dart';
 import 'package:products_web_dashboard/features/presentation/pages/products_details_page.dart';
 import 'package:products_web_dashboard/main.dart';
-import 'package:products_web_dashboard/settings.dart';
-import 'package:products_web_dashboard/theme.dart';
+import 'package:products_web_dashboard/core/utils/settings.dart';
+import 'package:products_web_dashboard/core/utils/theme.dart';
 
 import '../../features/presentation/pages/product_list_page.dart';
 import '../utils/responive.dart';
